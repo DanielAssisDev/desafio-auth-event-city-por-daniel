@@ -11,6 +11,8 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 public class CityService {
 
@@ -18,9 +20,8 @@ public class CityService {
     private CityRepository cityRepository;
 
     @Transactional(readOnly = true)
-    public Page<CityDTO> findAll(Pageable pageable) {
-        pageable = PageRequest.of(0,10, Sort.by("name"));
-        return cityRepository.findAll(pageable).map(CityDTO::new);
+    public List<CityDTO> findAll() {
+        return cityRepository.findAll(Sort.by("name")).stream().map(CityDTO::new).toList();
     }
 
     @Transactional
