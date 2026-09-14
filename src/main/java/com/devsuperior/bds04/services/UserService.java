@@ -3,6 +3,7 @@ package com.devsuperior.bds04.services;
 import com.devsuperior.bds04.entities.Role;
 import com.devsuperior.bds04.entities.User;
 import com.devsuperior.bds04.projections.UserDetailsProjection;
+import com.devsuperior.bds04.repositories.RoleRepository;
 import com.devsuperior.bds04.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -27,10 +28,9 @@ public class UserService implements UserDetailsService {
         User user = new User();
         user.setEmail(users.getFirst().getUsername());
         user.setPassword(users.getFirst().getPassword());
-//        for(UserDetailsProjection udp : users){
-//            user.addRole(new Role(udp.getRoleId(), ));
-//        }
-
-        return null;
+        for(UserDetailsProjection udp : users){
+            user.addRole(new Role(udp.getRoleId(), udp.getAuthority()));
+        }
+        return user;
     }
 }
