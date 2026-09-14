@@ -5,7 +5,9 @@ import com.devsuperior.bds04.entities.City;
 import com.devsuperior.bds04.repositories.CityRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,6 +19,7 @@ public class CityService {
 
     @Transactional(readOnly = true)
     public Page<CityDTO> findAll(Pageable pageable) {
+        pageable = PageRequest.of(0,10, Sort.by("name"));
         return cityRepository.findAll(pageable).map(CityDTO::new);
     }
 
