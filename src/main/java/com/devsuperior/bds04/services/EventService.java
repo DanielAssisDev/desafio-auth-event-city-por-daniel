@@ -29,7 +29,7 @@ public class EventService {
         event.setName(eventDTO.getName());
         event.setDate(eventDTO.getDate());
         event.setUrl(eventDTO.getUrl());
-        event.setCity(cityRepository.getReferenceById(eventDTO.getId()));
+        event.setCity(cityRepository.getReferenceById(eventDTO.getCityId()));
         return new EventDTO(eventRepository.save(event));
     }
 }
